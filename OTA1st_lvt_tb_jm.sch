@@ -5,7 +5,8 @@ K {}
 V {}
 S {}
 E {}
-N 760 -490 760 -470 { lab=VDD}
+T {IREF is 4x bias current} 1120 -700 0 0 0.4 0.4 {}
+N 760 -490 760 -470 { lab=V3V3}
 N 760 -410 760 -390 { lab=GND}
 N 1280 -40 1280 -20 { lab=GND}
 N 1280 -120 1280 -100 { lab=#net1}
@@ -50,8 +51,8 @@ let id1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[id]
 let id2  = @m.x1.xm2.msky130_fd_pr__nfet_01v8_lvt[id]
 let id3  = @m.x1.xm3.msky130_fd_pr__pfet_01v8_lvt[id]
 let id4  = @m.x1.xm4.msky130_fd_pr__pfet_01v8_lvt[id]
-let id5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[id]
-let id6  = @m.x1.xm6.msky130_fd_pr__nfet_01v8_lvt[id]
+*let id5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[id]
+*let id6  = @m.x1.xm6.msky130_fd_pr__nfet_01v8_lvt[id]
 let id7  = @m.x1.xm7.msky130_fd_pr__nfet_01v8_lvt[id]
 let id8  = @m.x1.xm8.msky130_fd_pr__nfet_01v8_lvt[id]
 
@@ -59,31 +60,49 @@ let gm1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[gm]
 let gm2  = @m.x1.xm2.msky130_fd_pr__nfet_01v8_lvt[gm]
 let gm3  = @m.x1.xm3.msky130_fd_pr__pfet_01v8_lvt[gm]
 let gm4  = @m.x1.xm4.msky130_fd_pr__pfet_01v8_lvt[gm]
-let gm5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[gm]
-let gm6  = @m.x1.xm6.msky130_fd_pr__nfet_01v8_lvt[gm]
+*let gm5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[gm]
+*let gm6  = @m.x1.xm6.msky130_fd_pr__nfet_01v8_lvt[gm]
 let gm7  = @m.x1.xm7.msky130_fd_pr__nfet_01v8_lvt[gm]
 let gm8  = @m.x1.xm8.msky130_fd_pr__nfet_01v8_lvt[gm]
 
-let cgs5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[cgg]
+let vgs1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[vgs]
+let vth1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[vth]
+let vov1 = vgs1 - vth1
+let vds1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[vds]
+let vdsat1  = @m.x1.xm1.msky130_fd_pr__nfet_01v8_lvt[vdsat]
+
+*let cgs5  = @m.x1.xm5.msky130_fd_pr__pfet_01v8_lvt[cgg]
 
 print v(inp)
 print v(inm)
 print v(out)
+let v_offset = v(inp)-v(inm)
+print v_offset
 
-print cgs5
+*print cgs5
 print id1
 print id2
-print id5
+*print id5
 print gm1
 print gm2
-print gm5
+*print gm5
+print id7
+print id8
+
+
+print v(vgs1)
+print v(vth1)
+print v(vov1)
+print v(vds1)
+print v(vdsat1)
+
 .endc
 "}
 C {devices/vsource.sym} 760 -440 0 0 {name=V1 value=1.8}
 C {devices/gnd.sym} 760 -390 0 0 {name=l2 lab=GND}
-C {devices/lab_pin.sym} 760 -490 0 0 {name=l3 sig_type=std_logic lab=VDD
+C {devices/lab_pin.sym} 760 -490 0 0 {name=l3 sig_type=std_logic lab=V3V3
 }
-C {devices/isource.sym} 1280 -70 2 0 {name=I0 value=1u
+C {devices/isource.sym} 1280 -70 2 0 {name=I0 value=1.5u
 }
 C {devices/gnd.sym} 1280 -20 0 0 {name=l1 lab=GND}
 C {devices/vsource.sym} 750 -190 0 0 {name=V2 value=\{CM_VOLTAGE\}}
@@ -95,7 +114,7 @@ C {devices/lab_pin.sym} 1000 -360 0 0 {name=l19 sig_type=std_logic lab=INP
 }
 C {devices/lab_pin.sym} 1000 -280 0 0 {name=l20 sig_type=std_logic lab=INM
 }
-C {devices/lab_pin.sym} 1120 -520 0 0 {name=l21 sig_type=std_logic lab=VDD
+C {devices/lab_pin.sym} 1120 -520 0 0 {name=l21 sig_type=std_logic lab=V3V3
 }
 C {devices/gnd.sym} 1260 -520 2 0 {name=l22 lab=GND}
 C {devices/lab_pin.sym} 1710 -320 2 0 {name=l23 sig_type=std_logic lab=OUT
@@ -120,4 +139,4 @@ device="ceramic capacitor"}
 C {devices/gnd.sym} 1440 -20 0 0 {name=l4 lab=GND}
 C {devices/lab_pin.sym} 1460 -120 0 1 {name=l6 sig_type=std_logic lab=INM
 }
-C {OTA3_jm.sym} 1180 -320 0 0 {name=x1}
+C {OTA1st_lvt_jm.sym} 1180 -320 0 0 {name=x1}
